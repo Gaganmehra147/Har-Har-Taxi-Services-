@@ -25,9 +25,9 @@ export default function HomePage() {
 
       {/* HERO SECTION - ROYAL BLUE & GOLD THEME */}
       <section className="relative pt-4 sm:pt-6 pb-12 overflow-hidden border-b border-navy-800/80">
-        {/* Ambient Royal Blue & Gold glow */}
-        <div className="absolute top-10 left-10 w-96 h-96 bg-royal-600/15 rounded-full blur-[140px] pointer-events-none" />
-        <div className="absolute top-20 right-10 w-96 h-96 bg-gold-500/10 rounded-full blur-[160px] pointer-events-none" />
+        {/* Ambient Royal Blue & Gold glow (Desktop only for max mobile performance) */}
+        <div className="hidden sm:block absolute top-10 left-10 w-96 h-96 bg-royal-600/15 rounded-full blur-[120px] pointer-events-none" />
+        <div className="hidden sm:block absolute top-20 right-10 w-96 h-96 bg-gold-500/10 rounded-full blur-[120px] pointer-events-none" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 items-start">

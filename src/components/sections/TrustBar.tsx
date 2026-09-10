@@ -3,7 +3,7 @@ import { ShieldCheck, HeartHandshake, Award, Clock } from "lucide-react";
 
 export default function TrustBar() {
   return (
-    <section className="border-y border-navy-800 bg-navy-900/80 backdrop-blur-md py-6">
+    <section className="border-y border-navy-800 bg-navy-900/95 sm:backdrop-blur-md py-6">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           {/* Main Trust Claim */}

@@ -10,10 +10,16 @@ export default function WhiteSwiftShowcase() {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (typeof window !== "undefined" && !window.matchMedia("(hover: hover)").matches) return;
     const rect = e.currentTarget.getBoundingClientRect();
     const x = ((e.clientX - rect.left) / rect.width - 0.5) * 16;
     const y = ((e.clientY - rect.top) / rect.height - 0.5) * -16;
     setMousePos({ x, y });
+  };
+
+  const handleMouseEnter = () => {
+    if (typeof window !== "undefined" && !window.matchMedia("(hover: hover)").matches) return;
+    setIsHovered(true);
   };
 
   const handleMouseLeave = () => {
@@ -24,7 +30,7 @@ export default function WhiteSwiftShowcase() {
   return (
     <div
       onMouseMove={handleMouseMove}
-      onMouseEnter={() => setIsHovered(true)}
+      onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       className="relative rounded-2xl overflow-hidden glass-panel-glow border border-royal-500/35 p-3 sm:p-4 transition-all duration-300 group"
       style={{

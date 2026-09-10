@@ -25,9 +25,22 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: radial-gradient(ellipse at 50% 0%, #122040 0%, #0a1226 45%, #060a14 100%);
-  background-attachment: fixed;
+  background-color: #060a14;
   -webkit-font-smoothing: antialiased;
+  position: relative;
+}
+
+/* Hardware-accelerated fixed background layer (solves mobile scroll lag) */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(ellipse at 50% 0%, #122040 0%, #0a1226 45%, #060a14 100%);
+  pointer-events: none;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  will-change: transform;
 }
 
 * {
@@ -63,26 +76,37 @@ body {
 
 /* Glassmorphism styling with Royal Navy & Electric Blue tones */
 .glass-panel {
-  background: rgba(13, 22, 43, 0.82);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  background: rgba(13, 22, 43, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(59, 130, 246, 0.16);
   box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.35);
 }
 
 .glass-panel-glow {
-  background: rgba(15, 26, 52, 0.9);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  background: rgba(15, 26, 52, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(59, 130, 246, 0.35);
   box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.7), 0 0 35px -8px rgba(37, 99, 235, 0.28);
 }
 
 .glass-dropdown {
   background: rgba(10, 18, 36, 0.98);
-  backdrop-filter: blur(20px);
+  backdrop-filter: blur(16px);
   border: 1px solid rgba(59, 130, 246, 0.25);
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+}
+
+/* On mobile screens, disable expensive real-time blurs to keep scrolling at 60-120fps */
+@media (max-width: 768px) {
+  .glass-panel,
+  .glass-panel-glow,
+  .glass-dropdown {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: rgba(13, 22, 43, 0.96) !important;
+  }
 }
 
 /* Royal Electric Blue button */

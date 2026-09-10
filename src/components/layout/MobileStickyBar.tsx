@@ -7,7 +7,7 @@ import { Phone, MessageSquare, Car } from "lucide-react";
 
 export default function MobileStickyBar() {
   return (
-    <aside aria-label="Quick mobile booking actions" className="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-navy-950/95 backdrop-blur-xl border-t border-navy-800 px-3 pt-2 pb-2 safe-bottom shadow-[0_-8px_30px_rgba(0,0,0,0.7)]">
+    <aside aria-label="Quick mobile booking actions" className="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-navy-950/98 border-t border-navy-800 px-3 pt-2 pb-2 safe-bottom shadow-[0_-8px_30px_rgba(0,0,0,0.7)]">
       <div className="grid grid-cols-3 gap-2 max-w-md mx-auto">
         {/* CALL BUTTON */}
         <a
