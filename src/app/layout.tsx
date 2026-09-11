@@ -4,6 +4,7 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import MobileStickyBar from "@/components/layout/MobileStickyBar";
 import JsonLd from "@/components/seo/JsonLd";
+import ThemeToggle from "@/components/common/ThemeToggle";
 import { BUSINESS_CONFIG } from "@/data/business";
 
 export const viewport: Viewport = {
@@ -81,18 +82,36 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark scroll-smooth">
+    <html lang="en" className="dark scroll-smooth" suppressHydrationWarning>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="canonical" href={BUSINESS_CONFIG.siteUrl} />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var saved = localStorage.getItem('theme');
+                  if (saved === 'light') {
+                    document.documentElement.classList.remove('dark');
+                  } else {
+                    document.documentElement.classList.add('dark');
+                  }
+                } catch(e) {}
+              })();
+            `,
+          }}
+        />
       </head>
-      <body className="bg-navy-950 text-slate-100 antialiased min-h-screen flex flex-col font-sans selection:bg-royal-500 selection:text-white">
+      <body className="bg-white text-zinc-900 dark:bg-black dark:text-zinc-100 antialiased min-h-screen flex flex-col font-sans transition-colors duration-200 selection:bg-zinc-900 selection:text-white dark:selection:bg-white dark:selection:text-black">
         <JsonLd pageType="Home" />
         <Navbar />
         <main className="flex-grow pt-16 pb-16 lg:pb-0">{children}</main>
         <Footer />
         <MobileStickyBar />
+        {/* Floating Quick Theme Switcher */}
+        <ThemeToggle variant="floating" />
       </body>
     </html>
   );

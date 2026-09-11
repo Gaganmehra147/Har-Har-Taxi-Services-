@@ -75,28 +75,28 @@ export default function BookingCard({
 
   return (
     <div className={`glass-panel-glow rounded-2xl p-4 xs:p-5 sm:p-7 relative overflow-hidden transition-all duration-300 ${compact ? 'max-w-xl' : 'w-full'}`}>
-      {/* Decorative top royal & gold accent bar */}
-      <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-royal-600 via-cyan-400 to-gold-400" />
+      {/* Decorative top monochrome luxury accent bar */}
+      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-zinc-800 via-zinc-400 to-zinc-800 dark:from-white dark:via-zinc-400 dark:to-zinc-800" />
 
       <div className="flex flex-col xs:flex-row xs:items-center justify-between gap-3 mb-5">
         <div>
-          <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-bold bg-royal-500/20 text-royal-300 border border-royal-500/40">
-            <Sparkles className="w-3 h-3 text-gold-400" /> Quick 2-Min Booking
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-bold bg-zinc-100 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 border border-zinc-200 dark:border-zinc-700">
+            <Sparkles className="w-3 h-3 text-zinc-950 dark:text-white" /> Quick 2-Min Booking
           </span>
-          <h3 className="text-xl sm:text-2xl font-black font-display text-white mt-1">
+          <h3 className="text-xl sm:text-2xl font-black font-display text-zinc-950 dark:text-white mt-1.5">
             Book Your Taxi
           </h3>
         </div>
 
         {/* Trip type selector toggle */}
-        <div className="flex p-1 bg-navy-900/90 rounded-lg border border-navy-700/80 text-xs font-medium self-start xs:self-auto">
+        <div className="flex p-1 bg-zinc-100 dark:bg-zinc-900 rounded-xl border border-zinc-200 dark:border-zinc-800 text-xs font-medium self-start xs:self-auto">
           <button
             type="button"
             onClick={() => setTripType("one-way")}
-            className={`px-3 py-1.5 rounded-md transition-all ${
+            className={`px-3 py-1.5 rounded-lg transition-all ${
               tripType === "one-way"
-                ? "bg-royal-600 text-white shadow font-bold"
-                : "text-slate-400 hover:text-white"
+                ? "bg-zinc-950 dark:bg-white text-white dark:text-zinc-950 shadow-sm font-bold"
+                : "text-zinc-600 dark:text-zinc-400 hover:text-black dark:hover:text-white"
             }`}
           >
             One-Way
@@ -104,10 +104,10 @@ export default function BookingCard({
           <button
             type="button"
             onClick={() => setTripType("round-trip")}
-            className={`px-3 py-1.5 rounded-md transition-all ${
+            className={`px-3 py-1.5 rounded-lg transition-all ${
               tripType === "round-trip"
-                ? "bg-royal-600 text-white shadow font-bold"
-                : "text-slate-400 hover:text-white"
+                ? "bg-zinc-950 dark:bg-white text-white dark:text-zinc-950 shadow-sm font-bold"
+                : "text-zinc-600 dark:text-zinc-400 hover:text-black dark:hover:text-white"
             }`}
           >
             Round-Trip
@@ -120,11 +120,11 @@ export default function BookingCard({
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
           {/* Pickup */}
           <div>
-            <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">
+            <label className="block text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 mb-1.5">
               Pickup Location
             </label>
             <div className="relative">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-royal-400">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-zinc-500 dark:text-zinc-400">
                 <MapPin className="w-4 h-4" />
               </div>
               <input
@@ -133,18 +133,18 @@ export default function BookingCard({
                 value={pickup}
                 onChange={(e) => setPickup(e.target.value)}
                 placeholder="e.g. Wright Town, Airport, Station"
-                className="w-full pl-9 pr-3 py-2.5 bg-navy-900/90 border border-navy-700 rounded-xl text-sm text-white placeholder-slate-500 focus:outline-none focus:border-royal-500 focus:ring-1 focus:ring-royal-500 transition-all"
+                className="w-full pl-9 pr-3 py-2.5 bg-zinc-50 dark:bg-zinc-950 border border-zinc-300 dark:border-zinc-800 rounded-xl text-sm text-zinc-900 dark:text-white placeholder-zinc-400 dark:placeholder-zinc-600 focus:outline-none focus:border-zinc-900 dark:focus:border-white focus:ring-1 focus:ring-zinc-900 dark:focus:ring-white transition-all"
               />
             </div>
           </div>
 
           {/* Destination */}
           <div>
-            <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">
+            <label className="block text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 mb-1.5">
               Destination
             </label>
             <div className="relative">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gold-400">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-zinc-500 dark:text-zinc-400">
                 <Navigation className="w-4 h-4" />
               </div>
               <input
@@ -154,7 +154,7 @@ export default function BookingCard({
                 onChange={(e) => setDestination(e.target.value)}
                 placeholder="e.g. Bhedaghat, Kanha, Bhopal"
                 list="popular-destinations"
-                className="w-full pl-9 pr-3 py-2.5 bg-navy-900/90 border border-navy-700 rounded-xl text-sm text-white placeholder-slate-500 focus:outline-none focus:border-royal-500 focus:ring-1 focus:ring-royal-500 transition-all"
+                className="w-full pl-9 pr-3 py-2.5 bg-zinc-50 dark:bg-zinc-950 border border-zinc-300 dark:border-zinc-800 rounded-xl text-sm text-zinc-900 dark:text-white placeholder-zinc-400 dark:placeholder-zinc-600 focus:outline-none focus:border-zinc-900 dark:focus:border-white focus:ring-1 focus:ring-zinc-900 dark:focus:ring-white transition-all"
               />
               <datalist id="popular-destinations">
                 {ROUTES_DATA.map((r) => (
@@ -169,11 +169,11 @@ export default function BookingCard({
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
           {/* Date */}
           <div>
-            <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">
+            <label className="block text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 mb-1.5">
               Travel Date
             </label>
             <div className="relative">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-zinc-400">
                 <Calendar className="w-4 h-4" />
               </div>
               <input
@@ -182,37 +182,37 @@ export default function BookingCard({
                 value={date}
                 min={new Date().toISOString().split("T")[0]}
                 onChange={(e) => setDate(e.target.value)}
-                className="w-full pl-9 pr-3 py-2.5 bg-navy-900/90 border border-navy-700 rounded-xl text-sm text-white focus:outline-none focus:border-royal-500 focus:ring-1 focus:ring-royal-500 transition-all"
+                className="w-full pl-9 pr-3 py-2.5 bg-zinc-50 dark:bg-zinc-950 border border-zinc-300 dark:border-zinc-800 rounded-xl text-sm text-zinc-900 dark:text-white focus:outline-none focus:border-zinc-900 dark:focus:border-white focus:ring-1 focus:ring-zinc-900 dark:focus:ring-white transition-all"
               />
             </div>
           </div>
 
           {/* Time */}
           <div>
-            <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">
+            <label className="block text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 mb-1.5">
               Pickup Time
             </label>
             <input
               type="time"
               value={time}
               onChange={(e) => setTime(e.target.value)}
-              className="w-full px-3 py-2.5 bg-navy-900/90 border border-navy-700 rounded-xl text-sm text-white focus:outline-none focus:border-royal-500 focus:ring-1 focus:ring-royal-500 transition-all"
+              className="w-full px-3 py-2.5 bg-zinc-50 dark:bg-zinc-950 border border-zinc-300 dark:border-zinc-800 rounded-xl text-sm text-zinc-900 dark:text-white focus:outline-none focus:border-zinc-900 dark:focus:border-white focus:ring-1 focus:ring-zinc-900 dark:focus:ring-white transition-all"
             />
           </div>
 
           {/* Passengers */}
           <div>
-            <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">
+            <label className="block text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 mb-1.5">
               Passengers
             </label>
             <div className="relative">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-zinc-400">
                 <Users className="w-4 h-4" />
               </div>
               <select
                 value={passengers}
                 onChange={(e) => setPassengers(e.target.value)}
-                className="w-full pl-9 pr-3 py-2.5 bg-navy-900/90 border border-navy-700 rounded-xl text-sm text-white focus:outline-none focus:border-royal-500 focus:ring-1 focus:ring-royal-500 transition-all appearance-none cursor-pointer"
+                className="w-full pl-9 pr-3 py-2.5 bg-zinc-50 dark:bg-zinc-950 border border-zinc-300 dark:border-zinc-800 rounded-xl text-sm text-zinc-900 dark:text-white focus:outline-none focus:border-zinc-900 dark:focus:border-white focus:ring-1 focus:ring-zinc-900 dark:focus:ring-white transition-all appearance-none cursor-pointer"
               >
                 <option value="1">1 Person</option>
                 <option value="2">2 Persons</option>
@@ -228,14 +228,14 @@ export default function BookingCard({
 
         {/* Vehicle Selection */}
         <div>
-          <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">
+          <label className="block text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 mb-1.5">
             Vehicle Type
           </label>
           <div className="grid grid-cols-3 gap-1.5 xs:gap-2 sm:gap-3">
             {[
-              { id: "sedan", label: "Sedan", sub: "Swift (4 pax)" },
-              { id: "suv", label: "SUV", sub: "Ertiga (6 pax)" },
-              { id: "premium-suv", label: "Prem. SUV", sub: "Innova (7 pax)" },
+              { id: "sedan", label: "Sedan", sub: "Swift Dzire" },
+              { id: "suv", label: "SUV", sub: "Ertiga" },
+              { id: "premium-suv", label: "Prem. SUV", sub: "Innova" },
             ].map((v) => (
               <button
                 key={v.id}
@@ -243,30 +243,32 @@ export default function BookingCard({
                 onClick={() => setVehicle(v.id as any)}
                 className={`p-2 xs:p-2.5 sm:p-3 rounded-xl border text-left transition-all ${
                   vehicle === v.id
-                    ? "bg-royal-600/25 border-royal-400 text-white shadow-glow-royal-sm"
-                    : "bg-navy-900/70 border-navy-700/80 text-slate-300 hover:border-navy-600"
+                    ? "bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 border-zinc-950 dark:border-white shadow-md font-bold"
+                    : "bg-zinc-50 dark:bg-zinc-900/60 border-zinc-200 dark:border-zinc-800 text-zinc-700 dark:text-zinc-300 hover:border-zinc-400 dark:hover:border-zinc-600"
                 }`}
               >
                 <div className="flex items-center gap-1 sm:gap-1.5 mb-0.5">
-                  <Car className={`w-3.5 h-3.5 shrink-0 ${vehicle === v.id ? "text-gold-400" : "text-slate-400"}`} />
-                  <span className="text-[11px] xs:text-xs sm:text-sm font-bold truncate">{v.label}</span>
+                  <Car className={`w-3.5 h-3.5 shrink-0 ${vehicle === v.id ? "text-white dark:text-zinc-950" : "text-zinc-400"}`} />
+                  <span className="text-[11px] xs:text-xs sm:text-sm truncate">{v.label}</span>
                 </div>
-                <p className="text-[9px] xs:text-[10px] text-slate-400 leading-tight truncate">{v.sub}</p>
+                <p className={`text-[9px] xs:text-[10px] leading-tight truncate ${vehicle === v.id ? "text-zinc-300 dark:text-zinc-700" : "text-zinc-500 dark:text-zinc-400"}`}>
+                  {v.sub}
+                </p>
               </button>
             ))}
           </div>
         </div>
 
-        {/* Live Estimate Feedback (If destination matched) */}
+        {/* Live Estimate Feedback */}
         {estimatedFare && (
-          <div className="p-3 bg-royal-600/15 border border-royal-500/40 rounded-xl flex items-center justify-between text-xs sm:text-sm">
+          <div className="p-3 bg-zinc-100 dark:bg-zinc-900/90 border border-zinc-300 dark:border-zinc-700 rounded-xl flex items-center justify-between text-xs sm:text-sm">
             <div className="flex items-center gap-2">
-              <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-              <span className="text-slate-200">
+              <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
+              <span className="text-zinc-700 dark:text-zinc-300">
                 Estimated {tripType === "one-way" ? "One-Way" : "Round-Trip"} Fare:
               </span>
             </div>
-            <div className="font-extrabold text-gold-400 text-base">
+            <div className="font-extrabold text-zinc-950 dark:text-white text-base sm:text-lg">
               ₹{estimatedFare.toLocaleString("en-IN")}*
             </div>
           </div>
@@ -277,7 +279,7 @@ export default function BookingCard({
           {/* WhatsApp Estimate CTA */}
           <button
             type="submit"
-            className="btn-royal w-full py-3.5 px-4 rounded-xl flex items-center justify-center gap-2 text-sm font-bold shadow-glow-royal cursor-pointer"
+            className="btn-royal w-full py-3.5 px-4 rounded-xl flex items-center justify-center gap-2 text-sm font-bold cursor-pointer"
           >
             <span>Get Fare Estimate</span>
             <ArrowRight className="w-4 h-4" />
@@ -286,14 +288,14 @@ export default function BookingCard({
           {/* Direct Call Button */}
           <a
             href={`tel:${BUSINESS_CONFIG.phoneRaw}`}
-            className="btn-gold w-full py-3.5 px-4 rounded-xl flex items-center justify-center gap-2 text-sm font-bold shadow-glow-gold-sm cursor-pointer"
+            className="btn-gold w-full py-3.5 px-4 rounded-xl flex items-center justify-center gap-2 text-sm font-bold cursor-pointer"
           >
-            <PhoneCall className="w-4 h-4 text-navy-950" />
+            <PhoneCall className="w-4 h-4" />
             <span>Call {BUSINESS_CONFIG.phoneDisplay}</span>
           </a>
         </div>
 
-        <p className="text-center text-[11px] text-slate-400 pt-1">
+        <p className="text-center text-[11px] text-zinc-500 dark:text-zinc-400 pt-1">
           Instant WhatsApp quotes &bull; Zero cancellation fee &bull; Verified drivers
         </p>
       </form>
