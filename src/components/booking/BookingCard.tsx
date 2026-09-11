@@ -21,6 +21,7 @@ import {
   Loader2
 } from "lucide-react";
 import { CarItem, Booking } from "@/data/db/types";
+import { getClientCars, addClientBooking } from "@/data/clientStorage";
 
 interface BookingCardProps {
   initialPickup?: string;
@@ -47,30 +48,24 @@ export default function BookingCard({
   const [vehicle, setVehicle] = useState<string>(initialVehicle);
   const [pricingModel, setPricingModel] = useState<"per-km" | "normal-rental">("per-km");
   
-  // Customer details for Admin sync
+  // Customer details
   const [customerName, setCustomerName] = useState("");
   const [customerPhone, setCustomerPhone] = useState("");
-  const [showDetails, setShowDetails] = useState(false);
-  
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [bookingSuccess, setBookingSuccess] = useState<Booking | null>(null);
   
-  // Dynamic cars list from admin DB
+  // Dynamic cars list from client storage
   const [availableCars, setAvailableCars] = useState<CarItem[]>([]);
 
   useEffect(() => {
-    async function loadCars() {
-      try {
-        const res = await fetch("/api/cars");
-        const data = await res.json();
-        if (data.success && Array.isArray(data.cars) && data.cars.length > 0) {
-          setAvailableCars(data.cars.filter((c: CarItem) => c.active));
-        }
-      } catch (e) {
-        // Fallback silently
-      }
-    }
+    const loadCars = () => {
+      const cars = getClientCars();
+      setAvailableCars(cars.filter(c => c.active));
+    };
     loadCars();
+
+    window.addEventListener("harhar_cars_updated", loadCars);
+    return () => window.removeEventListener("harhar_cars_updated", loadCars);
   }, []);
 
   // Selected car details
@@ -116,56 +111,46 @@ export default function BookingCard({
       destination: destination || "My Destination",
       date,
       time,
-      passengers: `${passengers} (Cust: ${customerName || "Customer"}, Ph: ${customerPhone || "Pending"})`,
+      passengers: `${passengers} (Cust: ${customerName || "Customer"}, Ph: ${customerPhone || "Direct"})`,
       vehicleType: `${vehicleDisplayTitle} [Plan: ${bookingPlan}]`,
       tripType: tripType === "one-way" ? "One-Way Drop" : "Round-Trip",
     });
   }, [pickup, destination, date, time, passengers, customerName, customerPhone, vehicleDisplayTitle, pricingModel, selectedCar, tripType]);
 
-  const handleBookingSubmit = async (e: React.FormEvent) => {
+  const handleBookingSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!customerPhone) {
-      setShowDetails(true);
+    if (!customerPhone.trim()) {
+      alert("Kripya apna phone number bharein taaki driver aapse contact kar sake.");
       return;
     }
 
     setIsSubmitting(true);
     try {
-      const res = await fetch("/api/bookings", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          customerName: customerName.trim() || "Website Visitor",
-          customerPhone: customerPhone.trim(),
-          pickup: pickup.trim() || "Jabalpur",
-          destination: destination.trim() || "Sightseeing / Outstation",
-          date,
-          time,
-          passengers,
-          tripType,
-          vehicleId: vehicle,
-          vehicleName: vehicleDisplayTitle,
-          estimatedFare: estimatedFare || null,
-          pricingModel,
-          notes: pricingModel === "normal-rental" ? "Selected Full-Day / Normal Rental Package" : "Selected Per-KM Highway Booking"
-        })
+      const newBooking = addClientBooking({
+        customerName: customerName.trim() || "Website Customer",
+        customerPhone: customerPhone.trim(),
+        pickup: pickup.trim() || "Jabalpur",
+        destination: destination.trim() || "Local / Outstation",
+        date,
+        time,
+        passengers,
+        tripType,
+        vehicleId: vehicle,
+        vehicleName: vehicleDisplayTitle,
+        estimatedFare: estimatedFare || null,
+        pricingModel,
+        notes: pricingModel === "normal-rental" ? "Selected Full-Day / Normal Rental Package" : "Selected Per-KM Highway Booking"
       });
 
-      const data = await res.json();
-      if (data.success && data.booking) {
-        setBookingSuccess(data.booking);
-        // Also open WhatsApp in new tab for customer instant quote
-        try {
-          window.open(whatsappUrl, "_blank", "noopener,noreferrer");
-        } catch (err) {
-          // ignore popup blocker
-        }
-      } else {
-        alert(data.error || "Booking could not be saved. Please call us directly.");
+      setBookingSuccess(newBooking);
+      // Open WhatsApp pre-filled with all details
+      try {
+        window.open(whatsappUrl, "_blank", "noopener,noreferrer");
+      } catch (err) {
+        // ignore popup blocker
       }
     } catch (err) {
       console.error(err);
-      // Even if network fails, fallback to WhatsApp
       window.open(whatsappUrl, "_blank", "noopener,noreferrer");
     } finally {
       setIsSubmitting(false);
@@ -204,10 +189,7 @@ export default function BookingCard({
 
           <div className="flex gap-3 mt-6">
             <button
-              onClick={() => {
-                setBookingSuccess(null);
-                setShowDetails(false);
-              }}
+              onClick={() => setBookingSuccess(null)}
               className="px-4 py-2 rounded-xl text-xs font-bold bg-zinc-200 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 hover:bg-zinc-300"
             >
               Nayi Booking Karein
@@ -317,7 +299,7 @@ export default function BookingCard({
           {/* Destination */}
           <div>
             <label className="block text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 mb-1.5">
-              {pricingModel === "normal-rental" ? "Destination / City Coverage" : "Destination"}
+              {pricingModel === "normal-rental" ? "Destination / Coverage" : "Destination"}
             </label>
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-zinc-500 dark:text-zinc-400">
@@ -419,53 +401,26 @@ export default function BookingCard({
           </div>
           
           <div className="grid grid-cols-3 gap-1.5 xs:gap-2 sm:gap-3">
-            {availableCars.length > 0 ? (
-              availableCars.map((c) => (
-                <button
-                  key={c.id}
-                  type="button"
-                  onClick={() => setVehicle(c.id)}
-                  className={`p-2 xs:p-2.5 sm:p-3 rounded-xl border text-left transition-all relative ${
-                    vehicle === c.id
-                      ? "bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 border-zinc-950 dark:border-white shadow-md font-bold"
-                      : "bg-zinc-50 dark:bg-zinc-900/60 border-zinc-200 dark:border-zinc-800 text-zinc-700 dark:text-zinc-300 hover:border-zinc-400 dark:hover:border-zinc-600"
-                  }`}
-                >
-                  <div className="flex items-center gap-1 sm:gap-1.5 mb-0.5">
-                    <Car className={`w-3.5 h-3.5 shrink-0 ${vehicle === c.id ? "text-white dark:text-zinc-950" : "text-zinc-400"}`} />
-                    <span className="text-[11px] xs:text-xs sm:text-sm truncate">{c.name.split(" ")[0]}</span>
-                  </div>
-                  <p className={`text-[9px] xs:text-[10px] leading-tight truncate ${vehicle === c.id ? "text-zinc-300 dark:text-zinc-700" : "text-zinc-500 dark:text-zinc-400"}`}>
-                    {pricingModel === "normal-rental" ? `₹${c.normalBookingFare}/day` : `₹${c.ratePerKm}/km`}
-                  </p>
-                </button>
-              ))
-            ) : (
-              [
-                { id: "sedan", label: "Sedan", sub: "Swift Dzire", rate: "₹11/km", fixed: "₹1800/day" },
-                { id: "suv", label: "SUV", sub: "Ertiga", rate: "₹15/km", fixed: "₹2600/day" },
-                { id: "premium-suv", label: "Prem. SUV", sub: "Innova", rate: "₹19/km", fixed: "₹3600/day" },
-              ].map((v) => (
-                <button
-                  key={v.id}
-                  type="button"
-                  onClick={() => setVehicle(v.id)}
-                  className={`p-2 xs:p-2.5 sm:p-3 rounded-xl border text-left transition-all ${
-                    vehicle === v.id
-                      ? "bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 border-zinc-950 dark:border-white shadow-md font-bold"
-                      : "bg-zinc-50 dark:bg-zinc-900/60 border-zinc-200 dark:border-zinc-800 text-zinc-700 dark:text-zinc-300 hover:border-zinc-400 dark:hover:border-zinc-600"
-                  }`}
-                >
-                  <div className="flex items-center gap-1 sm:gap-1.5 mb-0.5">
-                    <Car className={`w-3.5 h-3.5 shrink-0 ${vehicle === v.id ? "text-white dark:text-zinc-950" : "text-zinc-400"}`} />
-                    <span className="text-[11px] xs:text-xs sm:text-sm truncate">{v.label}</span>
-                  </div>
-                  <p className={`text-[9px] xs:text-[10px] leading-tight truncate ${vehicle === v.id ? "text-zinc-300 dark:text-zinc-700" : "text-zinc-500 dark:text-zinc-400"}`}>
-                    {pricingModel === "normal-rental" ? v.fixed : v.rate}
-                  </p>
-                </button>
-              ))
-            )}
+            {availableCars.map((c) => (
+              <button
+                key={c.id}
+                type="button"
+                onClick={() => setVehicle(c.id)}
+                className={`p-2 xs:p-2.5 sm:p-3 rounded-xl border text-left transition-all relative ${
+                  vehicle === c.id
+                    ? "bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 border-zinc-950 dark:border-white shadow-md font-bold"
+                    : "bg-zinc-50 dark:bg-zinc-900/60 border-zinc-200 dark:border-zinc-800 text-zinc-700 dark:text-zinc-300 hover:border-zinc-400 dark:hover:border-zinc-600"
+                }`}
+              >
+                <div className="flex items-center gap-1 sm:gap-1.5 mb-0.5">
+                  <Car className={`w-3.5 h-3.5 shrink-0 ${vehicle === c.id ? "text-white dark:text-zinc-950" : "text-zinc-400"}`} />
+                  <span className="text-[11px] xs:text-xs sm:text-sm truncate">{c.name.split(" ")[0]}</span>
+                </div>
+                <p className={`text-[9px] xs:text-[10px] leading-tight truncate ${vehicle === c.id ? "text-zinc-300 dark:text-zinc-700" : "text-zinc-500 dark:text-zinc-400"}`}>
+                  {pricingModel === "normal-rental" ? `₹${c.normalBookingFare}/day` : `₹${c.ratePerKm}/km`}
+                </p>
+              </button>
+            ))}
           </div>
         </div>
 
@@ -491,7 +446,7 @@ export default function BookingCard({
               <Phone className="w-3.5 h-3.5 text-zinc-700 dark:text-zinc-300" />
               Customer Contact (Required for Booking):
             </span>
-            <span className="text-[10px] text-zinc-500">Synced with Admin</span>
+            <span className="text-[10px] text-zinc-500">Synced with Admin &amp; WhatsApp</span>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
@@ -535,7 +490,7 @@ export default function BookingCard({
             {isSubmitting ? (
               <>
                 <Loader2 className="w-4 h-4 animate-spin" />
-                <span>Connecting with Admin...</span>
+                <span>Booking Ho Rahi Hai...</span>
               </>
             ) : (
               <>

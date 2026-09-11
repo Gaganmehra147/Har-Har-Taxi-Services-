@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { FLEET_DATA, buildWhatsAppLink } from "@/data/business";
 import { Users, Briefcase, Wind, Check, ArrowRight } from "lucide-react";
 import { CarItem } from "@/data/db/types";
+import { getClientCars } from "@/data/clientStorage";
 
 const DEFAULT_VEHICLE_MEDIA: Record<string, { src: string; alt: string; tag: string }> = {
   sedan: {
@@ -27,21 +28,16 @@ export default function FleetSection() {
   const [dbCars, setDbCars] = useState<CarItem[]>([]);
 
   useEffect(() => {
-    async function loadFleet() {
-      try {
-        const res = await fetch("/api/cars");
-        const data = await res.json();
-        if (data.success && Array.isArray(data.cars) && data.cars.length > 0) {
-          setDbCars(data.cars.filter((c: CarItem) => c.active));
-        }
-      } catch (err) {
-        // Fallback to static FLEET_DATA
-      }
-    }
+    const loadFleet = () => {
+      const cars = getClientCars();
+      setDbCars(cars.filter((c: CarItem) => c.active));
+    };
     loadFleet();
+
+    window.addEventListener("harhar_cars_updated", loadFleet);
+    return () => window.removeEventListener("harhar_cars_updated", loadFleet);
   }, []);
 
-  // Use dynamic db cars if available, otherwise static FLEET_DATA
   const vehiclesToDisplay = dbCars.length > 0 ? dbCars : FLEET_DATA.map(f => ({
     id: f.id,
     name: f.name,
