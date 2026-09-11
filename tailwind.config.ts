@@ -10,7 +10,10 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Luxury Monochrome tokens
+        zinc: {
+          750: "#222226",
+          850: "#18181b",
+        },
         noir: {
           950: "#050505",
           900: "#0a0a0a",

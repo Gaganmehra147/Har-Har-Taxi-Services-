@@ -52,23 +52,23 @@ export default function OneWayTaxiJabalpurPage() {
       <JsonLd breadcrumbs={breadcrumbs} faqs={oneWayFaqs} pageType="Service" />
 
       {/* Hero */}
-      <section className="relative pt-12 pb-16 bg-gradient-to-b from-charcoal-900 to-charcoal-950 border-b border-charcoal-800">
+      <section className="relative pt-12 pb-16 bg-zinc-50 dark:bg-zinc-950 border-b border-zinc-200 dark:border-zinc-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <nav className="flex items-center gap-2 text-xs text-slate-400 mb-6">
-            <Link href="/" className="hover:text-saffron-400 transition-colors">Home</Link>
+          <nav className="flex items-center gap-2 text-xs text-zinc-500 dark:text-zinc-400 mb-6">
+            <Link href="/" className="hover:text-zinc-700 dark:text-zinc-300 transition-colors">Home</Link>
             <span>/</span>
-            <span className="text-saffron-400">One Way Taxi Jabalpur</span>
+            <span className="text-zinc-700 dark:text-zinc-300">One Way Taxi Jabalpur</span>
           </nav>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
             <div className="lg:col-span-7 space-y-5">
-              <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-widest bg-saffron-500/15 text-saffron-400 border border-saffron-500/30">
+              <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-widest bg-zinc-200/80 dark:bg-zinc-800/50 text-zinc-700 dark:text-zinc-300 border border-zinc-300 dark:border-zinc-700">
                 Drop-Only Cabs &bull; No Return Fare
               </span>
-              <h1 className="text-3xl sm:text-5xl font-black text-white font-display tracking-tight leading-tight">
+              <h1 className="text-3xl sm:text-5xl font-black text-zinc-950 dark:text-white font-display tracking-tight leading-tight">
                 One Way Taxi Service from Jabalpur
               </h1>
-              <p className="text-base sm:text-lg text-slate-300 leading-relaxed">
+              <p className="text-base sm:text-lg text-zinc-600 dark:text-zinc-300 leading-relaxed">
                 Why pay for two-way travel when you only need a drop? Har Har Taxi Services offers transparent, economical one-way cab bookings from Jabalpur to major cities across Madhya Pradesh and Maharashtra.
               </p>
 
@@ -100,36 +100,36 @@ export default function OneWayTaxiJabalpurPage() {
       </section>
 
       {/* Explaining One-Way Value */}
-      <section className="py-16 bg-charcoal-950">
+      <section className="py-16 bg-zinc-50 dark:bg-zinc-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
           <div>
-            <h2 className="text-2xl sm:text-3xl font-bold text-white font-display mb-4">
+            <h2 className="text-2xl sm:text-3xl font-bold text-zinc-950 dark:text-white font-display mb-4">
               What Is One-Way Taxi &amp; How Does It Save You Money?
             </h2>
-            <p className="text-slate-300 text-sm sm:text-base leading-relaxed max-w-3xl">
+            <p className="text-zinc-600 dark:text-zinc-300 text-sm sm:text-base leading-relaxed max-w-3xl">
               Traditional car rentals charge customers for round-trip mileage (minimum 250-300 km/day) plus driver return night allowance. Our dedicated one-way routes eliminate these surplus charges. You only pay for your actual point A to point B journey.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="glass-panel p-6 rounded-2xl">
-              <BadgeIndianRupee className="w-8 h-8 text-saffron-400 mb-3" />
-              <h3 className="text-lg font-bold text-white font-display mb-2">Save up to 40%</h3>
-              <p className="text-xs text-slate-400 leading-relaxed">
+              <BadgeIndianRupee className="w-8 h-8 text-zinc-700 dark:text-zinc-300 mb-3" />
+              <h3 className="text-lg font-bold text-zinc-950 dark:text-white font-display mb-2">Save up to 40%</h3>
+              <p className="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed">
                 Save significantly compared to standard two-way booking tariffs when relocating, catching flights, or taking single-leg business trips.
               </p>
             </div>
             <div className="glass-panel p-6 rounded-2xl">
-              <ArrowRightCircle className="w-8 h-8 text-saffron-400 mb-3" />
-              <h3 className="text-lg font-bold text-white font-display mb-2">Doorstep Pickup & Drop</h3>
-              <p className="text-xs text-slate-400 leading-relaxed">
+              <ArrowRightCircle className="w-8 h-8 text-zinc-700 dark:text-zinc-300 mb-3" />
+              <h3 className="text-lg font-bold text-zinc-950 dark:text-white font-display mb-2">Doorstep Pickup & Drop</h3>
+              <p className="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed">
                 Cab picks you up directly at your doorstep in Jabalpur and drops you right at your address in Bhopal, Indore, or Nagpur.
               </p>
             </div>
             <div className="glass-panel p-6 rounded-2xl">
-              <ShieldCheck className="w-8 h-8 text-saffron-400 mb-3" />
-              <h3 className="text-lg font-bold text-white font-display mb-2">All-Inclusive Fixed Quotes</h3>
-              <p className="text-xs text-slate-400 leading-relaxed">
+              <ShieldCheck className="w-8 h-8 text-zinc-700 dark:text-zinc-300 mb-3" />
+              <h3 className="text-lg font-bold text-zinc-950 dark:text-white font-display mb-2">All-Inclusive Fixed Quotes</h3>
+              <p className="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed">
                 Clear quotes covering driver allowance, fuel, and highway permits agreed upon before your trip begins.
               </p>
             </div>

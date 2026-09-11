@@ -19,7 +19,12 @@ import {
   Clock, 
   Car, 
   ArrowRight,
-  ShieldCheck
+  ShieldCheck,
+  Compass,
+  Plane,
+  Train,
+  ArrowRightCircle,
+  Repeat
 } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -54,41 +59,41 @@ export default function TaxiServiceInJabalpurPage() {
       />
 
       {/* Page Hero */}
-      <section className="relative pt-12 pb-16 bg-gradient-to-b from-charcoal-900 to-charcoal-950 border-b border-charcoal-800">
+      <section className="relative pt-12 pb-16 bg-zinc-50 dark:bg-zinc-950 border-b border-zinc-200 dark:border-zinc-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Breadcrumb nav */}
-          <nav className="flex items-center gap-2 text-xs text-slate-400 mb-6">
-            <Link href="/" className="hover:text-saffron-400 transition-colors">
+          <nav className="flex items-center gap-2 text-xs text-zinc-500 dark:text-zinc-400 mb-6">
+            <Link href="/" className="hover:text-zinc-700 dark:hover:text-zinc-300 transition-colors">
               Home
             </Link>
             <span>/</span>
-            <span className="text-saffron-400">Taxi Service in Jabalpur</span>
+            <span className="text-zinc-700 dark:text-zinc-300">Taxi Service in Jabalpur</span>
           </nav>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
             <div className="lg:col-span-7 space-y-5">
-              <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-widest bg-saffron-500/15 text-saffron-400 border border-saffron-500/30">
+              <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-widest bg-zinc-200/80 dark:bg-zinc-800/50 text-zinc-700 dark:text-zinc-300 border border-zinc-300 dark:border-zinc-700">
                 Primary City & Outstation Cab Booking
               </span>
 
-              <h1 className="text-3xl sm:text-5xl font-black text-white font-display tracking-tight leading-tight">
+              <h1 className="text-3xl sm:text-5xl font-black text-zinc-950 dark:text-white font-display tracking-tight leading-tight">
                 Taxi Service in Jabalpur
               </h1>
 
-              <p className="text-base sm:text-lg text-slate-300 leading-relaxed">
+              <p className="text-base sm:text-lg text-zinc-600 dark:text-zinc-300 leading-relaxed">
                 Looking for a dependable, transparently priced taxi service in Jabalpur? Har Har Taxi Services offers well-maintained AC cabs for city transfers, corporate commutes, Dumna Airport shuttles, and intercity trips across Madhya Pradesh.
               </p>
 
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-2 text-xs text-slate-300">
-                <div className="flex items-center gap-2 p-2.5 rounded-lg bg-charcoal-800/80 border border-charcoal-700/80">
-                  <ShieldCheck className="w-4 h-4 text-saffron-400 shrink-0" />
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-2 text-xs text-zinc-600 dark:text-zinc-300">
+                <div className="flex items-center gap-2 p-2.5 rounded-lg bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800">
+                  <ShieldCheck className="w-4 h-4 text-zinc-700 dark:text-zinc-300 shrink-0" />
                   <span>Verified Drivers</span>
                 </div>
-                <div className="flex items-center gap-2 p-2.5 rounded-lg bg-charcoal-800/80 border border-charcoal-700/80">
+                <div className="flex items-center gap-2 p-2.5 rounded-lg bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800">
                   <Clock className="w-4 h-4 text-emerald-400 shrink-0" />
                   <span>On-Time Arrival</span>
                 </div>
-                <div className="flex items-center gap-2 p-2.5 rounded-lg bg-charcoal-800/80 border border-charcoal-700/80">
+                <div className="flex items-center gap-2 p-2.5 rounded-lg bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800">
                   <Car className="w-4 h-4 text-amber-400 shrink-0" />
                   <span>Clean AC Fleet</span>
                 </div>
@@ -122,16 +127,16 @@ export default function TaxiServiceInJabalpurPage() {
       </section>
 
       {/* Main Content with Semantic H2 Hierarchy */}
-      <section className="py-16 bg-charcoal-950">
+      <section className="py-16 bg-zinc-50 dark:bg-zinc-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
 
           {/* Section: Taxi Services We Offer in Jabalpur */}
           <div>
             <div className="max-w-3xl mb-10">
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-white font-display">
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-zinc-950 dark:text-white font-display">
                 Taxi Services We Offer in Jabalpur
               </h2>
-              <p className="text-slate-400 text-sm mt-2 leading-relaxed">
+              <p className="text-zinc-500 dark:text-zinc-400 text-sm mt-2 leading-relaxed">
                 Whether you need a quick station pickup, a full-day city rental for wedding functions, or an outstation holiday cab, Har Har Taxi Services has tailored packages designed for maximum convenience.
               </p>
             </div>
@@ -139,15 +144,16 @@ export default function TaxiServiceInJabalpurPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {/* Local Taxi */}
               <div className="glass-panel p-6 rounded-2xl">
-                <h3 className="text-lg font-bold text-white font-display mb-2">
+                <Car className="w-8 h-8 text-zinc-700 dark:text-zinc-300 mb-3" />
+                <h3 className="text-lg font-bold text-zinc-950 dark:text-white font-display mb-2">
                   Local Taxi Service
                 </h3>
-                <p className="text-xs text-slate-400 leading-relaxed mb-4">
+                <p className="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed mb-4">
                   Doorstep pickups across Wright Town, Napier Town, Civil Lines, and Vijay Nagar for business or leisure.
                 </p>
                 <Link
                   href="/local-taxi-jabalpur/"
-                  className="text-xs font-bold text-saffron-400 hover:text-white flex items-center gap-1"
+                  className="text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:text-zinc-950 dark:hover:text-white flex items-center gap-1"
                 >
                   <span>Learn about local packages</span>
                   <ArrowRight className="w-3.5 h-3.5" />
@@ -156,15 +162,16 @@ export default function TaxiServiceInJabalpurPage() {
 
               {/* Outstation Taxi */}
               <div className="glass-panel p-6 rounded-2xl">
-                <h3 className="text-lg font-bold text-white font-display mb-2">
+                <Compass className="w-8 h-8 text-zinc-700 dark:text-zinc-300 mb-3" />
+                <h3 className="text-lg font-bold text-zinc-950 dark:text-white font-display mb-2">
                   Outstation Taxi Service
                 </h3>
-                <p className="text-xs text-slate-400 leading-relaxed mb-4">
+                <p className="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed mb-4">
                   Comfortable intercity sedans and SUVs for Kanha, Bandhavgarh, Pachmarhi, Khajuraho, and Bhopal.
                 </p>
                 <Link
                   href="/outstation-taxi-jabalpur/"
-                  className="text-xs font-bold text-saffron-400 hover:text-white flex items-center gap-1"
+                  className="text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:text-zinc-950 dark:hover:text-white flex items-center gap-1"
                 >
                   <span>View outstation cab options</span>
                   <ArrowRight className="w-3.5 h-3.5" />
@@ -173,15 +180,16 @@ export default function TaxiServiceInJabalpurPage() {
 
               {/* Airport Taxi */}
               <div className="glass-panel p-6 rounded-2xl">
-                <h3 className="text-lg font-bold text-white font-display mb-2">
+                <Plane className="w-8 h-8 text-zinc-700 dark:text-zinc-300 mb-3" />
+                <h3 className="text-lg font-bold text-zinc-950 dark:text-white font-display mb-2">
                   Airport Taxi Service
                 </h3>
-                <p className="text-xs text-slate-400 leading-relaxed mb-4">
+                <p className="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed mb-4">
                   Dedicated Dumna Airport (JLR) pickup and drop with real-time flight tracking to prevent delays.
                 </p>
                 <Link
                   href="/airport-taxi-jabalpur/"
-                  className="text-xs font-bold text-saffron-400 hover:text-white flex items-center gap-1"
+                  className="text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:text-zinc-950 dark:hover:text-white flex items-center gap-1"
                 >
                   <span>Check airport transfer rates</span>
                   <ArrowRight className="w-3.5 h-3.5" />
@@ -190,15 +198,16 @@ export default function TaxiServiceInJabalpurPage() {
 
               {/* Railway Station Taxi */}
               <div className="glass-panel p-6 rounded-2xl">
-                <h3 className="text-lg font-bold text-white font-display mb-2">
+                <Train className="w-8 h-8 text-zinc-700 dark:text-zinc-300 mb-3" />
+                <h3 className="text-lg font-bold text-zinc-950 dark:text-white font-display mb-2">
                   Railway Station Taxi Service
                 </h3>
-                <p className="text-xs text-slate-400 leading-relaxed mb-4">
+                <p className="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed mb-4">
                   Zero waiting queues at Jabalpur Junction (JBP) and Madan Mahal (MML) stations with luggage assistance.
                 </p>
                 <Link
                   href="/railway-station-taxi-jabalpur/"
-                  className="text-xs font-bold text-saffron-400 hover:text-white flex items-center gap-1"
+                  className="text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:text-zinc-950 dark:hover:text-white flex items-center gap-1"
                 >
                   <span>Book station cab</span>
                   <ArrowRight className="w-3.5 h-3.5" />
@@ -207,15 +216,16 @@ export default function TaxiServiceInJabalpurPage() {
 
               {/* One Way Taxi */}
               <div className="glass-panel p-6 rounded-2xl">
-                <h3 className="text-lg font-bold text-white font-display mb-2">
+                <ArrowRightCircle className="w-8 h-8 text-zinc-700 dark:text-zinc-300 mb-3" />
+                <h3 className="text-lg font-bold text-zinc-950 dark:text-white font-display mb-2">
                   One Way Taxi Service
                 </h3>
-                <p className="text-xs text-slate-400 leading-relaxed mb-4">
+                <p className="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed mb-4">
                   Pay only for the distance you travel from Jabalpur to Bhopal, Indore, Katni, Mandla, or Nagpur.
                 </p>
                 <Link
                   href="/one-way-taxi-jabalpur/"
-                  className="text-xs font-bold text-saffron-400 hover:text-white flex items-center gap-1"
+                  className="text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:text-zinc-950 dark:hover:text-white flex items-center gap-1"
                 >
                   <span>Check one-way routes</span>
                   <ArrowRight className="w-3.5 h-3.5" />
@@ -224,15 +234,16 @@ export default function TaxiServiceInJabalpurPage() {
 
               {/* Round Trip Taxi */}
               <div className="glass-panel p-6 rounded-2xl">
-                <h3 className="text-lg font-bold text-white font-display mb-2">
+                <Repeat className="w-8 h-8 text-zinc-700 dark:text-zinc-300 mb-3" />
+                <h3 className="text-lg font-bold text-zinc-950 dark:text-white font-display mb-2">
                   Round Trip Taxi Service
                 </h3>
-                <p className="text-xs text-slate-400 leading-relaxed mb-4">
+                <p className="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed mb-4">
                   Dedicated private vehicle and chauffeur for multi-day tourism, family weddings, and wildlife excursions.
                 </p>
                 <Link
                   href="/round-trip-taxi-jabalpur/"
-                  className="text-xs font-bold text-saffron-400 hover:text-white flex items-center gap-1"
+                  className="text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:text-zinc-950 dark:hover:text-white flex items-center gap-1"
                 >
                   <span>Explore round-trip packages</span>
                   <ArrowRight className="w-3.5 h-3.5" />
