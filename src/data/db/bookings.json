@@ -1,0 +1,38 @@
+[
+  {
+    "id": "BK-882101",
+    "customerName": "Rajesh Sharma",
+    "customerPhone": "+91 98261 44521",
+    "pickup": "Wright Town, Jabalpur",
+    "destination": "Kanha National Park",
+    "date": "2026-09-12",
+    "time": "07:30",
+    "passengers": "4",
+    "tripType": "round-trip",
+    "vehicleId": "suv",
+    "vehicleName": "SUV (Maruti Ertiga)",
+    "estimatedFare": 4400,
+    "pricingModel": "per-km",
+    "status": "confirmed",
+    "notes": "Safari transfer to Khatia Gate resort. Needs carrier for luggage.",
+    "createdAt": "2026-09-11T02:56:20.737Z"
+  },
+  {
+    "id": "BK-882102",
+    "customerName": "Pooja Verma",
+    "customerPhone": "+91 94251 33219",
+    "pickup": "Dumna Airport (JLR)",
+    "destination": "Civil Lines, Jabalpur",
+    "date": "2026-09-11",
+    "time": "14:15",
+    "passengers": "2",
+    "tripType": "one-way",
+    "vehicleId": "sedan",
+    "vehicleName": "Sedan (Swift Dzire)",
+    "estimatedFare": 800,
+    "pricingModel": "per-km",
+    "status": "pending",
+    "notes": "Flight arrival pickup, driver should carry name placard.",
+    "createdAt": "2026-09-11T05:56:20.737Z"
+  }
+]

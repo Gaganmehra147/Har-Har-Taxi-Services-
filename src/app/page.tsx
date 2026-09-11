@@ -2,11 +2,8 @@ import React from "react";
 import WhiteSwiftShowcase from "@/components/vehicle/WhiteSwiftShowcase";
 import BookingCard from "@/components/booking/BookingCard";
 import TrustBar from "@/components/sections/TrustBar";
-import ServicesGrid from "@/components/sections/ServicesGrid";
 import FleetSection from "@/components/sections/FleetSection";
 import WhyChooseUs from "@/components/sections/WhyChooseUs";
-import PopularRoutes from "@/components/sections/PopularRoutes";
-import LocalAreas from "@/components/sections/LocalAreas";
 import HowItWorks from "@/components/sections/HowItWorks";
 import ReviewsSection from "@/components/sections/ReviewsSection";
 import FaqAccordion from "@/components/sections/FaqAccordion";
@@ -116,20 +113,11 @@ export default function HomePage() {
       {/* TRUST BAR */}
       <TrustBar />
 
-      {/* SERVICES SECTION */}
-      <ServicesGrid />
-
       {/* FLEET SECTION */}
       <FleetSection />
 
       {/* WHY CHOOSE US */}
       <WhyChooseUs />
-
-      {/* POPULAR JABALPUR ROUTES */}
-      <PopularRoutes />
-
-      {/* JABALPUR LOCAL SERVICE AREAS */}
-      <LocalAreas />
 
       {/* HOW IT WORKS */}
       <HowItWorks />

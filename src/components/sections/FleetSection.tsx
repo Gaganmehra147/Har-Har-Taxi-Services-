@@ -1,11 +1,65 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FLEET_DATA, buildWhatsAppLink } from "@/data/business";
 import { Users, Briefcase, Wind, Check, ArrowRight } from "lucide-react";
+import { CarItem } from "@/data/db/types";
+
+const DEFAULT_VEHICLE_MEDIA: Record<string, { src: string; alt: string; tag: string }> = {
+  sedan: {
+    src: "/images/white-swift-taxi.jpg",
+    alt: "White Swift Dzire Taxi Jabalpur",
+    tag: "White Swift Dzire",
+  },
+  suv: {
+    src: "/images/ertiga-taxi.jpg",
+    alt: "Maruti Ertiga SUV Taxi Jabalpur",
+    tag: "Maruti Ertiga SUV",
+  },
+  "premium-suv": {
+    src: "/images/innova-crysta-taxi.jpg",
+    alt: "Toyota Innova Crysta Luxury Taxi Jabalpur",
+    tag: "Toyota Innova Crysta",
+  },
+};
 
 export default function FleetSection() {
-  const [selectedVehicle, setSelectedVehicle] = useState<string>("sedan");
+  const [dbCars, setDbCars] = useState<CarItem[]>([]);
+
+  useEffect(() => {
+    async function loadFleet() {
+      try {
+        const res = await fetch("/api/cars");
+        const data = await res.json();
+        if (data.success && Array.isArray(data.cars) && data.cars.length > 0) {
+          setDbCars(data.cars.filter((c: CarItem) => c.active));
+        }
+      } catch (err) {
+        // Fallback to static FLEET_DATA
+      }
+    }
+    loadFleet();
+  }, []);
+
+  // Use dynamic db cars if available, otherwise static FLEET_DATA
+  const vehiclesToDisplay = dbCars.length > 0 ? dbCars : FLEET_DATA.map(f => ({
+    id: f.id,
+    name: f.name,
+    modelExamples: f.modelExamples,
+    category: f.id as any,
+    badge: f.badge,
+    ratePerKm: f.baseFarePerKm,
+    normalBookingFare: f.baseFarePerKm * 160,
+    normalBookingTerms: "Full Day Local (8 hrs / 80 km)",
+    capacityPassengers: f.capacityPassengers,
+    capacityLuggage: f.capacityLuggage,
+    hasAC: f.hasAC,
+    image: DEFAULT_VEHICLE_MEDIA[f.id]?.src || "/images/white-swift-taxi.jpg",
+    description: "Every vehicle is verified and sanitized.",
+    features: f.features,
+    active: true,
+    createdAt: ""
+  }));
 
   return (
     <section className="py-12 sm:py-16 lg:py-20 bg-zinc-50/60 dark:bg-zinc-950/60 border-t border-zinc-200 dark:border-zinc-800 relative transition-colors" id="fleet">
@@ -24,14 +78,17 @@ export default function FleetSection() {
         </div>
 
         {/* Vehicle Cards */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
-          {FLEET_DATA.map((vehicle) => {
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+          {vehiclesToDisplay.map((vehicle) => {
             const isFeatured = vehicle.id === "sedan"; // White Swift Dzire featured card
             const whatsappUrl = buildWhatsAppLink({
               pickup: "Jabalpur",
               destination: "Outstation / Local",
               vehicleType: `${vehicle.name} (${vehicle.modelExamples})`,
             });
+            const fallbackMedia = DEFAULT_VEHICLE_MEDIA[vehicle.id];
+            const imgSrc = vehicle.image || fallbackMedia?.src || "/images/white-swift-taxi.jpg";
+            const tag = fallbackMedia?.tag || vehicle.name;
 
             return (
               <div
@@ -61,7 +118,7 @@ export default function FleetSection() {
                       <div className="text-left xs:text-right">
                         <span className="text-[11px] text-zinc-500 dark:text-zinc-400 block">Starting from</span>
                         <span className="text-base sm:text-lg font-black text-zinc-950 dark:text-white font-display">
-                          ₹{vehicle.baseFarePerKm}/km*
+                          ₹{vehicle.ratePerKm}/km*
                         </span>
                       </div>
                     </div>
@@ -72,31 +129,33 @@ export default function FleetSection() {
 
                   {/* Vehicle Stylized Visual */}
                   <div className="my-5 rounded-xl bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 flex items-center justify-center relative overflow-hidden group h-36">
-                    {vehicle.id === "sedan" ? (
-                      <div className="relative w-full h-full">
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img
-                          src="/images/white-swift-taxi.jpg"
-                          alt="White Swift Dzire Taxi Jabalpur"
-                          className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                        <span className="absolute bottom-2 left-2.5 px-2 py-0.5 rounded text-[10px] bg-black/80 text-white font-bold border border-white/20">
-                          White Swift Dzire
-                        </span>
-                      </div>
-                    ) : (
-                      <>
-                        <div className="text-center relative z-10">
-                          <div className="text-5xl select-none mb-1 group-hover:scale-110 transition-transform">
-                            {vehicle.id === "suv" ? "🚙" : "🚐"}
-                          </div>
-                          <span className="text-[11px] uppercase tracking-wider text-zinc-700 dark:text-zinc-300 font-bold">
-                            {vehicle.name} &bull; AC Clean Fleet
-                          </span>
-                        </div>
-                      </>
-                    )}
+                    <div className="relative w-full h-full">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={imgSrc}
+                        alt={vehicle.name}
+                        className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                        onError={(e) => {
+                          (e.target as HTMLImageElement).src = "/images/white-swift-taxi.jpg";
+                        }}
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                      <span className="absolute bottom-2 left-2.5 px-2 py-0.5 rounded text-[10px] bg-black/80 text-white font-bold border border-white/20">
+                        {tag}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Dual Pricing Info (Per KM & Normal Day Rental) */}
+                  <div className="grid grid-cols-2 gap-2 mb-3 p-2 rounded-xl bg-zinc-100/70 dark:bg-zinc-900/70 border border-zinc-200 dark:border-zinc-800 text-center">
+                    <div>
+                      <span className="text-[10px] text-zinc-500 block">Highway Outstation</span>
+                      <span className="text-xs font-black text-zinc-900 dark:text-white">₹{vehicle.ratePerKm}/km</span>
+                    </div>
+                    <div>
+                      <span className="text-[10px] text-zinc-500 block">Normal Full Day</span>
+                      <span className="text-xs font-black text-emerald-600 dark:text-emerald-400">₹{vehicle.normalBookingFare}/day</span>
+                    </div>
                   </div>
 
                   {/* Vehicle Specs Grid */}
@@ -126,13 +185,13 @@ export default function FleetSection() {
                     </div>
                   </div>
 
-                  {/* Suitable For */}
-                  <div className="mt-5">
-                    <h4 className="text-xs font-bold uppercase tracking-wider text-zinc-700 dark:text-zinc-300 mb-2">
-                      Suitable For:
-                    </h4>
+                  {/* Description / Features */}
+                  <div className="mt-4">
+                    <p className="text-xs text-zinc-600 dark:text-zinc-400 mb-2 line-clamp-2">
+                      {vehicle.description}
+                    </p>
                     <ul className="space-y-1.5">
-                      {vehicle.suitableFor.map((item, idx) => (
+                      {vehicle.features?.slice(0, 4).map((item, idx) => (
                         <li key={idx} className="flex items-start gap-2 text-xs text-zinc-600 dark:text-zinc-400">
                           <Check className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
                           <span>{item}</span>

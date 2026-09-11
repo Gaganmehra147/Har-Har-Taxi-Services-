@@ -205,6 +205,10 @@ export default function Footer() {
         <div className="pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-zinc-500 dark:text-zinc-400 gap-4">
           <p>
             &copy; {new Date().getFullYear()} {BUSINESS_CONFIG.name} – Jabalpur, Madhya Pradesh. All rights reserved.
+            <span className="mx-2">&bull;</span>
+            <Link href="/admin" className="font-semibold text-zinc-700 dark:text-zinc-300 hover:underline">
+              Owner Admin Portal
+            </Link>
           </p>
           <p className="text-center sm:text-right">
             Reliable Taxi Service in Jabalpur &bull; Clean AC Fleet &bull; Dumna Airport &amp; Outstation Transfers

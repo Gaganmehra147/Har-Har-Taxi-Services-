@@ -1,0 +1,74 @@
+[
+  {
+    "id": "sedan",
+    "name": "Sedan (Swift Dzire)",
+    "modelExamples": "Swift Dzire / Toyota Etios / equivalent",
+    "category": "sedan",
+    "badge": "★ POPULAR: WHITE SWIFT DZIRE",
+    "ratePerKm": 11,
+    "normalBookingFare": 1800,
+    "normalBookingTerms": "Full Day Local (8 hrs / 80 km)",
+    "capacityPassengers": 4,
+    "capacityLuggage": 2,
+    "hasAC": true,
+    "image": "/images/white-swift-taxi.jpg",
+    "description": "Premium white commercial sedan ideal for solo travellers, couples, small families, and airport transfers. Fuel-efficient, clean cabin with dual AC.",
+    "features": [
+      "Dual Air Conditioning",
+      "Ergonomic Legroom",
+      "Boot Space (2 Bags)",
+      "Clean Sanitized Cabin",
+      "Phone Charging"
+    ],
+    "active": true,
+    "createdAt": "2026-09-11T06:47:27.601Z"
+  },
+  {
+    "id": "suv",
+    "name": "SUV (Maruti Ertiga)",
+    "modelExamples": "Maruti Ertiga / Mahindra Marazzo",
+    "category": "suv",
+    "badge": "Best Value for Families",
+    "ratePerKm": 15,
+    "normalBookingFare": 2600,
+    "normalBookingTerms": "Full Day Local (8 hrs / 80 km)",
+    "capacityPassengers": 6,
+    "capacityLuggage": 4,
+    "hasAC": true,
+    "image": "/images/ertiga-taxi.jpg",
+    "description": "Spacious 6-seater MPV/SUV with triple-row AC and reclining seats. Perfect for family outstation trips, tiger safaris, and airport luggage.",
+    "features": [
+      "Triple-row Roof AC Vents",
+      "Reclining Comfortable Seats",
+      "Carrier / Roof Rack Option",
+      "Smooth Highway Ride",
+      "First Aid Kit"
+    ],
+    "active": true,
+    "createdAt": "2026-09-11T06:47:27.601Z"
+  },
+  {
+    "id": "premium-suv",
+    "name": "Premium SUV (Innova Crysta)",
+    "modelExamples": "Toyota Innova / Innova Crysta",
+    "category": "premium-suv",
+    "badge": "Ultimate Highway Luxury",
+    "ratePerKm": 19,
+    "normalBookingFare": 3600,
+    "normalBookingTerms": "Full Day Local (8 hrs / 80 km)",
+    "capacityPassengers": 7,
+    "capacityLuggage": 5,
+    "hasAC": true,
+    "image": "/images/innova-crysta-taxi.jpg",
+    "description": "The gold standard of luxury highway travel in India. Captain seat comfort, whisper-quiet cabin, top suspension for Bandhavgarh and Kanha safaris.",
+    "features": [
+      "Captain Seat Luxury",
+      "Whisper-quiet Highway Drive",
+      "Superior Suspension",
+      "Spacious Boot & Legroom",
+      "Senior Chauffeur"
+    ],
+    "active": true,
+    "createdAt": "2026-09-11T06:47:27.601Z"
+  }
+]
